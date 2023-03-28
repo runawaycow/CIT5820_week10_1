@@ -42,7 +42,7 @@ def verify():
 
         try:
             # Verify signature using Ethereum account library
-            eth_account.Account.recover_message(message, signature=signature.hex()) == pk
+            eth_account.Account.recover_message(message, signature=signature) == pk
             return jsonify(True)
         except:
             return jsonify(False)

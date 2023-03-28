@@ -22,6 +22,7 @@ def verify():
 
         payload = content['payload']
         signature = content['sig']
+        pk = payload['pk']
     except:
 
         return jsonify(False)
@@ -37,13 +38,13 @@ def verify():
     if platform == 'Ethereum':
         print("ssssssssssssssssssssssssssssssssss" , file=sys.stderr)
         # Extract public key from payload and convert to lowercase
-        pk = payload['pk']
+        
         # Hash payload string using Ethereum message encoding
         message = eth_account.messages.encode_defunct(text=payload_str)
         print(message, file=sys.stderr)
         try:
             # Verify signature using Ethereum account library
-            eth_account.Account.recover_message(payload_str, signature=signature) == pk
+            eth_account.Account.recover_message(message, signature=signature) == pk
             print( "ETH sig verifies!" )
             return jsonify(True)
         except:
@@ -52,11 +53,10 @@ def verify():
     elif platform == 'Algorand':
         print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" , file=sys.stderr)
         # Extract public key from payload
-        pk = payload['pk']
         # Convert payload string to bytes
         message = payload_str.encode('utf-8')
         print(message , file=sys.stderr)
-        if algosdk.util.verify_bytes(payload_str.encode('utf-8'),signature,pk):
+        if algosdk.util.verify_bytes(message,signature,pk):
             print( "Algo sig verifies!" )
             return jsonify(True)
     else:

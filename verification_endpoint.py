@@ -15,9 +15,12 @@ def verify():
 # YOUR CODE BELOW
    
     # Extract payload and signature from request
-    #print("Test Print", file=sys.stderr)
-    payload = content['payload']
-    signature = content['sig']
+    print("Test Print", file=sys.stderr)
+    try:
+        payload = content['payload']
+        signature = content['sig']
+    except:
+            return jsonify(False)
 
     # Serialize payload dictionary to a string
     payload_str = json.dumps(payload, sort_keys=True)

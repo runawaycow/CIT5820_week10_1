@@ -49,12 +49,13 @@ def verify():
             return jsonify(False)
 
     elif platform == 'Algorand':
+        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" , file=sys.stderr)
         # Extract public key from payload
         pk = payload['pk']
 
         # Convert payload string to bytes
         message = payload_str.encode('utf-8')
-
+        print(message , file=sys.stderr)
         if algosdk.util.verify_bytes(message,signature,pk):
             print( "Algo sig verifies!" )
             return jsonify(True)

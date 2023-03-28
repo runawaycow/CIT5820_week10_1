@@ -25,16 +25,18 @@ def verify():
     # Check platform to use appropriate verification algorithm
     platform = payload['platform']
     if platform == 'Ethereum':
-        # Extract public key from payload and convert to lowercase
-        pk = payload['pk'].lower()
+        eth_account.Account.enable_unaudited_hdwallet_features()
+        acct, mnemonic = eth_account.Account.create_with_mnemonic()
 
-        # Hash payload string using Ethereum message encoding
-        message = eth_account.messages.encode_defunct(text=payload_str)
+        eth_pk = acct.address
+        eth_sk = acct.key
 
-        try:
-            # Verify signature using Ethereum account library
-            eth_account.Account.recover_message(message, signature=signature) == pk
-            return jsonify(True)
+        eth_encoded_msg = eth_account.messages.encode_defunct(text=payload)
+        eth_sig_obj = eth_account.Account.sign_message(eth_encoded_msg,eth_sk)
+        try: eth_account.Account.recover_message(eth_encoded_msg,signature=eth_sig_obj.signature.hex()) == eth_pk:
+            print( "ETH sig verifies!" )
+            result = True #Should only be true if signature validates
+            return jsonify(result)
         except:
             return jsonify(False)
 

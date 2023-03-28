@@ -41,11 +41,11 @@ def verify():
         pk = payload['pk']
         # Hash payload string using Ethereum message encoding
         message = eth_account.messages.encode_defunct(text=payload_str)
-
+        print(message, file=sys.stderr)
         try:
             # Verify signature using Ethereum account library
-            eth_account.Account.recover_message(message, signature=signature) == pk
-            print( "Algo sig verifies!" )
+            eth_account.Account.recover_message(message, signature=signature.hex()) == pk
+            print( "ETH sig verifies!" )
             return jsonify(True)
         except:
             return jsonify(False)
@@ -54,11 +54,10 @@ def verify():
         print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" , file=sys.stderr)
         # Extract public key from payload
         pk = payload['pk']
-
         # Convert payload string to bytes
         message = payload_str.encode('utf-8')
         print(message , file=sys.stderr)
-        if algosdk.util.verify_bytes(message,signature,pk):
+        if algosdk.util.verify_bytes(message,signature.hex(),pk):
             print( "Algo sig verifies!" )
             return jsonify(True)
     else:

@@ -26,6 +26,7 @@ def verify():
 
         return jsonify(False)
     print(payload , file=sys.stderr)
+    print(payload['platform'], file=sys.stderr) 
     print(signature , file=sys.stderr)        
     # Serialize payload dictionary to a string
     payload_str = str(json.dumps(payload))
@@ -33,8 +34,9 @@ def verify():
     # Check platform to use appropriate verification algorithm
     platform = payload['platform']
     if platform == 'Ethereum':
+        print("ssssssssssssssssssssssssssssssssss" , file=sys.stderr)
         # Extract public key from payload and convert to lowercase
-        pk = payload['pk'].lower()
+        pk = payload['pk']
 
         # Hash payload string using Ethereum message encoding
         message = eth_account.messages.encode_defunct(text=payload_str)

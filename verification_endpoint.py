@@ -18,6 +18,22 @@ def verify():
     payload = content['payload']
     signature = content['sig']
 
+    if 'sig' not in content:
+        result = False
+        return jsonify(result)
+    if 'payload' not in content:
+        result = False
+        return jsonify(result)
+    if 'message' or 'pk' or 'platform' not in content['payload']:
+        result = False
+        return jsonify(result)
+    if content['payload']['platform'] != 'Ethereum' or 'Algorand':
+        result = False
+        return jsonify(result)
+
+    payload = content['payload']
+    signature = content['sig']
+
     # Serialize payload dictionary to a string
     payload_str = json.dumps(payload, sort_keys=True)
 

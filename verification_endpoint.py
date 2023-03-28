@@ -19,17 +19,17 @@ def verify():
     print("Test Print", file=sys.stderr)
     print(content, file=sys.stderr)
     try:
-        print('mmmmmmmmmmmm', file=sys.stderr)
+
         payload = content['payload']
         signature = content['sig']
     except:
-        print('haaaaaaaaaaaaaaaa', file=sys.stderr)
+
         return jsonify(False)
     print(payload , file=sys.stderr)
     print(signature , file=sys.stderr)        
     # Serialize payload dictionary to a string
-    payload_str = json.dumps(str(payload), sort_keys=False)
-
+    payload_str = json.dumps(payload)
+    print(payload_str , file=sys.stderr)
     # Check platform to use appropriate verification algorithm
     platform = payload['platform']
     if platform == 'Ethereum':

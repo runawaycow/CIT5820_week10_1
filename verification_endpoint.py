@@ -40,7 +40,7 @@ def verify():
         # Extract public key from payload and convert to lowercase
         pk = payload['pk']
         # Hash payload string using Ethereum message encoding
-        message = eth_account.messages.encode_defunct(text=payload_str)
+        message = eth_account.messages.encode_defunct(text=payload_str.encode('utf-8'))
         print(message, file=sys.stderr)
         try:
             # Verify signature using Ethereum account library

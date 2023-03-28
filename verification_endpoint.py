@@ -15,7 +15,7 @@ def verify():
 # YOUR CODE BELOW
    
     # Extract payload and signature from request
-    print("Test Print", file=sys.stderr)
+    #print("Test Print", file=sys.stderr)
     payload = content['payload']
     signature = content['sig']
 

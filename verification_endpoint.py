@@ -19,11 +19,14 @@ def verify():
     print("Test Print", file=sys.stderr)
     print(content, file=sys.stderr)
     try:
+        print('mmmmmmmmmmmm', file=sys.stderr)
         payload = content['payload']
         signature = content['sig']
     except:
-            return jsonify(False)
-
+        print('haaaaaaaaaaaaaaaa', file=sys.stderr)
+        return jsonify(False)
+    print(payload , file=sys.stderr)
+    print(signature , file=sys.stderr)        
     # Serialize payload dictionary to a string
     payload_str = json.dumps(str(payload), sort_keys=False)
 

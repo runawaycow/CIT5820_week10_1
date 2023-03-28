@@ -29,7 +29,7 @@ def verify():
     print(payload['platform'], file=sys.stderr) 
     print(signature , file=sys.stderr)        
     # Serialize payload dictionary to a string
-    payload_str = str(payload)#str(json.dumps(payload))
+    payload_str = json.dumps(str(payload))
     print(payload_str , file=sys.stderr)
     # Check platform to use appropriate verification algorithm
     platform = payload['platform']

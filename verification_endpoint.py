@@ -21,7 +21,7 @@ def verify():
     try:
 
         payload = content['payload']
-        signature = content['sig'].hex()
+        signature = content['sig']
     except:
 
         return jsonify(False)

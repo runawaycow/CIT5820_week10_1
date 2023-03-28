@@ -15,7 +15,7 @@ def verify():
 # YOUR CODE BELOW
    
     # Extract payload and signature from request
-
+    print('here')
     payload = content['payload']
     signature = content['sig']
 
@@ -37,6 +37,7 @@ def verify():
             return jsonify(True)
         except:
             return jsonify(False)
+
     elif platform == 'Algorand':
         # Extract public key from payload
         pk = payload['pk']

@@ -37,13 +37,12 @@ def verify():
         print("ssssssssssssssssssssssssssssssssss" , file=sys.stderr)
         # Extract public key from payload and convert to lowercase
         pk = payload['pk']
-
         # Hash payload string using Ethereum message encoding
         message = eth_account.messages.encode_defunct(text=payload_str)
 
         try:
             # Verify signature using Ethereum account library
-            eth_account.Account.recover_message(message, signature=signature) == pk
+            eth_account.Account.recover_message(message, signature=signature.hex()) == pk
             return jsonify(True)
         except:
             return jsonify(False)

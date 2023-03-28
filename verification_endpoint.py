@@ -43,6 +43,7 @@ def verify():
         try:
             # Verify signature using Ethereum account library
             eth_account.Account.recover_message(message, signature=signature) == pk
+            print( "Algo sig verifies!" )
             return jsonify(True)
         except:
             return jsonify(False)
@@ -54,13 +55,9 @@ def verify():
         # Convert payload string to bytes
         message = payload_str.encode('utf-8')
 
-        try:
-            # Verify signature using Algorand encoding library
-            public_key = algosdk.encoding.decode_address(pk)
-            algosdk.sign.verify(message, signature, public_key)
+        if algosdk.util.verify_bytes(message,signature,pk):
+            print( "Algo sig verifies!" )
             return jsonify(True)
-        except:
-            return jsonify(False)
     else:
         # Invalid platform
         return jsonify(False)

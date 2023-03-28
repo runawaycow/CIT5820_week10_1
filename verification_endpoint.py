@@ -23,7 +23,7 @@ def verify():
             return jsonify(False)
 
     # Serialize payload dictionary to a string
-    payload_str = json.dumps(payload, sort_keys=True)
+    payload_str = json.dumps(str(payload), sort_keys=False)
 
     # Check platform to use appropriate verification algorithm
     platform = payload['platform']

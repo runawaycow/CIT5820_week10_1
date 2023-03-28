@@ -15,21 +15,6 @@ def verify():
 # YOUR CODE BELOW
    
     # Extract payload and signature from request
-    payload = content['payload']
-    signature = content['sig']
-
-    if 'sig' not in content:
-        result = False
-        return jsonify(result)
-    if 'payload' not in content:
-        result = False
-        return jsonify(result)
-    if 'message' or 'pk' or 'platform' not in content['payload']:
-        result = False
-        return jsonify(result)
-    if content['payload']['platform'] != 'Ethereum' or 'Algorand':
-        result = False
-        return jsonify(result)
 
     payload = content['payload']
     signature = content['sig']

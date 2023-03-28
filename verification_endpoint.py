@@ -13,7 +13,8 @@ def verify():
     content = request.get_json(silent=True)
 
 # YOUR CODE BELOW
-    
+    Print('start checking')
+    Print(content)
     if 'sig' not in content:
         result = False
         return jsonify(result)

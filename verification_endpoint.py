@@ -44,7 +44,7 @@ def verify():
         print(message, file=sys.stderr)
         try:
             # Verify signature using Ethereum account library
-            eth_account.Account.recover_message(message, signature=signature.hex()) == pk
+            eth_account.Account.recover_message(payload_str, signature=signature.hex()) == pk
             print( "ETH sig verifies!" )
             return jsonify(True)
         except:
@@ -57,7 +57,7 @@ def verify():
         # Convert payload string to bytes
         message = payload_str.encode('utf-8')
         print(message , file=sys.stderr)
-        if algosdk.util.verify_bytes(message,signature.hex(),pk):
+        if algosdk.util.verify_bytes(payload_str,signature,pk):
             print( "Algo sig verifies!" )
             return jsonify(True)
     else:
